@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: doctor-gpt-api
+    env: python
+    rootDir: backend
+    buildCommand: pip install -r ../requirements.txt
+    startCommand: gunicorn -c ../gunicorn_config.py api:app
+    plan: free
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: FLASK_ENV
+        value: production
+      - key: CORS_ORIGINS
+        value: https://mediintel.netlify.app
+      - key: QDRANT_URL
+        value: https://863329d5-c959-4c16-8fff-6bb9d73a12ae.us-east4-0.gcp.cloud.qdrant.io:6333
+      - key: QDRANT_API_KEY
+        value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3MiOiJtIn0.LjiMEfwKjdE3LHW3Y5hQd0xrybwOPP9Y-W1WEuI_1rU
+      - key: OLLAMA_MODEL
+        value: mxbai-embed-large:335m
+      - key: PORT
+        value: "5000"
+      - key: TRANSFORMERS_CACHE
+        value: /tmp/transformers_cache
+      - key: TORCH_HOME
+        value: /tmp/torch_home
+    disk:
+      name: tmp
+      mountPath: /tmp
+      sizeGB: 1 
