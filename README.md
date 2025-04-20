@@ -114,7 +114,8 @@ npm start
 
 ## 📸 Demo Response Screenshot
 
-![DoctorGPT Screenshot](./assets/demo-response.jpg)
+![DoctorGPT Screenshot](https://github.com/user-attachments/assets/c2be0766-5f79-47ef-a5ea-55f6a384acda)
+
 
 ---
 
