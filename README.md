@@ -1,46 +1,134 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 🩺 DoctorGPT – Virtual Medical Assistant
 
-## Available Scripts
+**DoctorGPT** is a domain-specific AI assistant for medical document analysis. Built with a React frontend and a Flask backend, it leverages local embedding generation and a PEFT fine-tuned LLM to answer patient-related queries.
 
-In the project directory, you can run:
+> 🧠 Live Demo: [https://mediintel.netlify.app](https://mediintel.netlify.app)  
+> 🧪 Backend must be running locally for full functionality.
 
-### `npm start`
+![DoctorGPT Demo](./assets/demo-response.jpg)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+---
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 📚 Overview
 
-### `npm test`
+This AI assistant analyzes uploaded patient PDF records and answers personalized medical questions using:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Qdrant** for vector search
+- **Ollama** for local embedding generation
+- **PEFT fine-tuned Mistral 7B model** for response generation
+- **React** (frontend) + **Flask** (backend)
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🧠 Model Training & Fine-tuning
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- The model was fine-tuned using the **HealthcareMagic 100K EN** dataset (`en.jsonl`) on medical Q&A.
+- A **parameter-efficient fine-tuning (PEFT)** technique was applied to Mistral 7B using LoRA.
+- The resulting model `Deanna/doctorgpt-ft` was created from this process.
+- Base model: [`TheBloke/Mistral-7B-Instruct-v0.2-GPTQ`](https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.2-GPTQ)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## 🧰 Tech Stack
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+| Component     | Tech                    |
+|---------------|-------------------------|
+| Frontend      | React, Netlify          |
+| Backend       | Flask, Transformers, Qdrant, Ollama |
+| Embeddings    | `mxbai-embed-large` (via Ollama) |
+| Vector Store  | Qdrant (local or cloud) |
+| Model         | Mistral 7B + PEFT (GPTQ) |
+| Storage       | Temp storage for PDFs   |
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## 🌐 Hosting Details
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Frontend is hosted on **[Netlify](https://mediintel.netlify.app)**
+- **Backend must be run locally** for now. The website interacts with `http://localhost:5000` APIs.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🛠️ Setup Instructions
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 1. Clone the Repository
+```bash
+git clone https://github.com/your-username/DoctorGPT.git
+cd DoctorGPT
+```
+
+---
+
+### 2. Install Backend Dependencies
+Ensure you have Python 3.9+ and Ollama installed. Then:
+
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate   # or venv\Scripts\activate on Windows
+pip install -r requirements.txt
+```
+
+---
+
+### 3. Setup Hugging Face Access
+Make sure you have access to Mistral-7B-GPTQ and the Deanna model:
+
+```bash
+huggingface-cli login
+# Enter your Hugging Face token
+```
+
+---
+
+### 4. Run Backend Locally
+```bash
+python app.py
+# Backend will start on http://localhost:5000
+```
+
+---
+
+### 5. Run Frontend (Optional for Local Testing)
+```bash
+cd frontend
+npm install
+npm start
+# Opens http://localhost:3000
+```
+
+---
+
+## 📂 File Upload & Interaction Flow
+
+1. Upload a medical PDF.
+2. The backend:
+   - Extracts text
+   - Splits it into chunks
+   - Embeds via Ollama
+   - Stores it in Qdrant
+3. Ask a medical question.
+4. The backend retrieves relevant chunks and constructs a prompt.
+5. Mistral 7B + PEFT generates a custom, context-aware response.
+
+---
+
+## 📸 Demo Response Screenshot
+
+![DoctorGPT Screenshot](./assets/demo-response.jpg)
+
+---
+
+## 🧾 License
+This project is for educational and research purposes only. Not intended for actual medical use. Always consult a professional.
+
+---
+
+## 🙌 Acknowledgements
+
+- [Hugging Face](https://huggingface.co)
+- [Ollama](https://ollama.com)
+- [Qdrant](https://qdrant.tech)
+- [Healthcare Magic Dataset](https://huggingface.co/datasets/healthcare-magic)
+- [TheBloke GPTQ Models](https://huggingface.co/TheBloke)
