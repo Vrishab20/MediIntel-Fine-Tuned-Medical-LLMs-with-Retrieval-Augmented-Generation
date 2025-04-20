@@ -6,11 +6,9 @@
 > 🧠 Live Demo: [https://mediintel.netlify.app](https://mediintel.netlify.app)  
 > 🧪 Backend must be running locally for full functionality.
 
-![DoctorGPT Demo](![WhatsApp Image 2025-04-19 at 20 42 18_228c1e0f](https://github.com/user-attachments/assets/8a926273-727a-4deb-a3cc-b528d90eef4e)
-
 ---
 
-## 📚 Overview
+##  Overview
 
 This AI assistant analyzes uploaded patient PDF records and answers personalized medical questions using:
 
@@ -21,7 +19,7 @@ This AI assistant analyzes uploaded patient PDF records and answers personalized
 
 ---
 
-## 🧠 Model Training & Fine-tuning
+##  Model Training & Fine-tuning
 
 - The model was fine-tuned using the **HealthcareMagic 100K EN** dataset (`en.jsonl`) on medical Q&A.
 - A **parameter-efficient fine-tuning (PEFT)** technique was applied to Mistral 7B using LoRA.
