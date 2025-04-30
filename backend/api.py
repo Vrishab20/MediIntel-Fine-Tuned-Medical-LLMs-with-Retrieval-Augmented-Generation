@@ -124,7 +124,7 @@ def search_documents(query, top_k=3):
 def load_model():
     try:
         # Using a smaller model that works on CPU
-        model_name = "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
+        model_name = "TheBloke/Mistral-7B-Instruct-v0.2-GPTQ"
         
         # Load model and tokenizer with CPU and memory optimizations
         model = AutoModelForCausalLM.from_pretrained(
