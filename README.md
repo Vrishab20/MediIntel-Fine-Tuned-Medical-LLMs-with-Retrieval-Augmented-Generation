@@ -1,10 +1,9 @@
-
-# 🩺 Fine-Tuned Medical LLM with Retrieval-Augmented Generation
+# Fine-Tuned Medical LLM with Retrieval-Augmented Generation
 
 **DoctorGPT** is a domain-specific AI assistant for medical document analysis. Built with a React frontend and a Flask backend, it leverages local embedding generation and a PEFT fine-tuned LLM to answer patient-related queries.
 
-> 🧠 Live Demo: [https://mediintel.netlify.app](https://mediintel.netlify.app)  
-> 🧪 Backend must be running locally for full functionality.
+>  Live Demo: [https://mediintel.netlify.app](https://mediintel.netlify.app)  
+>  Backend must be running locally for full functionality.
 
 ---
 
@@ -12,39 +11,40 @@
 
 This AI assistant analyzes uploaded patient PDF records and answers personalized medical questions using:
 
-- **Qdrant** for vector search
-- **Ollama** for local embedding generation
-- **PEFT fine-tuned Mistral 7B model** for response generation
+- **Qdrant** for vector search  
+- **Ollama** for local embedding generation  
+- **PEFT fine-tuned Mistral 7B model** for response generation  
 - **React** (frontend) + **Flask** (backend)
 
 ---
 
 ##  Model Training & Fine-tuning
 
-- The model was fine-tuned using the **HealthcareMagic 100K EN** dataset (`en.jsonl`) on medical Q&A.
-- A **parameter-efficient fine-tuning (PEFT)** technique was applied to Mistral 7B using LoRA.
-- The resulting model `Deanna/doctorgpt-ft` was created from this process.
+- The model was fine-tuned on the **HealthcareMagic 100K EN** dataset (`en.jsonl`) comprising medical Q&A conversations.
+- A **parameter-efficient fine-tuning (PEFT)** technique was applied using LoRA on top of the **Mistral 7B** architecture.
+- The resulting fine-tuned model is available at:  
+  🔗 [Deanna/doctorgpt-ft on Hugging Face](https://huggingface.co/Deanna/doctorgpt-ft/tree/main)
 - Base model: [`TheBloke/Mistral-7B-Instruct-v0.2-GPTQ`](https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.2-GPTQ)
 
 ---
 
-## 🧰 Tech Stack
+##  Tech Stack
 
-| Component     | Tech                    |
-|---------------|-------------------------|
-| Frontend      | React, Netlify          |
-| Backend       | Flask, Transformers, Qdrant, Ollama |
-| Embeddings    | `mxbai-embed-large` (via Ollama) |
-| Vector Store  | Qdrant (local or cloud) |
-| Model         | Mistral 7B + PEFT (GPTQ) |
-| Storage       | Temp storage for PDFs   |
+| Component     | Tech                                      |
+|---------------|-------------------------------------------|
+| Frontend      | React, Netlify                            |
+| Backend       | Flask, Transformers, Qdrant, Ollama       |
+| Embeddings    | `mxbai-embed-large` via Ollama            |
+| Vector Store  | Qdrant (local or cloud)                   |
+| Model         | Mistral 7B + PEFT (GPTQ)                  |
+| Storage       | Temp local file storage for PDFs          |
 
 ---
 
 ## 🌐 Hosting Details
 
-- Frontend is hosted on **[Netlify](https://mediintel.netlify.app)**
-- **Backend must be run locally** for now. The website interacts with `http://localhost:5000` APIs.
+- Frontend is hosted on **[Netlify](https://mediintel.netlify.app)**  
+- **Backend must be run locally** and interacts via `http://localhost:5000` APIs
 
 ---
 
@@ -56,11 +56,8 @@ git clone https://github.com/your-username/DoctorGPT.git
 cd DoctorGPT
 ```
 
----
-
 ### 2. Install Backend Dependencies
-Ensure you have Python 3.9+ and Ollama installed. Then:
-
+Ensure Python 3.9+ and Ollama are installed:
 ```bash
 cd backend
 python -m venv venv
@@ -68,27 +65,19 @@ source venv/bin/activate   # or venv\Scripts\activate on Windows
 pip install -r requirements.txt
 ```
 
----
-
-### 3. Setup Hugging Face Access
-Make sure you have access to Mistral-7B-GPTQ and the Deanna model:
-
+### 3. Hugging Face Access
 ```bash
 huggingface-cli login
-# Enter your Hugging Face token
+# Enter your Hugging Face token when prompted
 ```
-
----
 
 ### 4. Run Backend Locally
 ```bash
 python app.py
-# Backend will start on http://localhost:5000
+# Starts backend at http://localhost:5000
 ```
 
----
-
-### 5. Run Frontend (Optional for Local Testing)
+### 5. Run Frontend
 ```bash
 cd frontend
 npm install
@@ -98,36 +87,32 @@ npm start
 
 ---
 
-## 📂 File Upload & Interaction Flow
+## 📂 File Upload & Query Flow
 
 1. Upload a medical PDF.
-2. The backend:
-   - Extracts text
-   - Splits it into chunks
-   - Embeds via Ollama
-   - Stores it in Qdrant
-3. Ask a medical question.
-4. The backend retrieves relevant chunks and constructs a prompt.
-5. Mistral 7B + PEFT generates a custom, context-aware response.
+2. Backend extracts text → splits into chunks → embeds using Ollama → stores in Qdrant.
+3. User enters a medical question.
+4. Backend retrieves relevant chunks and constructs a prompt.
+5. Mistral 7B + PEFT generates a medically coherent, context-aware response.
 
 ---
 
-## 📸 Demo Response Screenshot
+##  Demo Screenshot
 
 ![DoctorGPT Screenshot](https://github.com/user-attachments/assets/c2be0766-5f79-47ef-a5ea-55f6a384acda)
 
+---
+
+##  License
+
+For educational and research use only. Not intended for clinical decision-making.
 
 ---
 
-## 🧾 License
-This project is for educational and research purposes only. Not intended for actual medical use. Always consult a professional.
+##  Acknowledgements
 
----
-
-## 🙌 Acknowledgements
-
-- [Hugging Face](https://huggingface.co)
-- [Ollama](https://ollama.com)
-- [Qdrant](https://qdrant.tech)
-- [Healthcare Magic Dataset](https://huggingface.co/datasets/healthcare-magic)
+- [Hugging Face](https://huggingface.co)  
+- [Ollama](https://ollama.com)  
+- [Qdrant](https://qdrant.tech)  
+- [Healthcare Magic Dataset](https://huggingface.co/datasets/healthcare-magic)  
 - [TheBloke GPTQ Models](https://huggingface.co/TheBloke)
