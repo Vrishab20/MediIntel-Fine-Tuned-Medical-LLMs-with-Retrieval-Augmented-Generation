@@ -1,5 +1,5 @@
 
-# 🩺 MediIntel: Fine-Tuned Medical LLMs with Retrieval-Augmented Generation
+# 🩺 Fine-Tuned Medical LLM with Retrieval-Augmented Generation
 
 **DoctorGPT** is a domain-specific AI assistant for medical document analysis. Built with a React frontend and a Flask backend, it leverages local embedding generation and a PEFT fine-tuned LLM to answer patient-related queries.
 
